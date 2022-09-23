@@ -9,7 +9,7 @@ Information is served via a REST API endpoint:
 `/airports?id=<airport_id>&country=<country_name>&city=<city_name>&iata=<iata_code>`
 
 The query code is defined in file [1/code.rql](1/code.rql).
-The endpoint is defined in file [1/airports.yml](1.airports.yml).
+The endpoint is defined in file [1/airports.yml](1/airports.yml).
 
 This example illustrates how easy it is to combine different data sources with RAW.
 
