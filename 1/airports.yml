@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://cdn.raw-labs.com/endpoint-schemaV0.9.json
+raw: 0.9
+endpoint: GET
+metadata:
+  title: Airports - An example joining a file and a database
+  description: |+ 
+    Example showing how to deliver an API from a query against a database, joining with a file.
+    By default (without parameters), the endpoint will return information on all airports.
+    Filters can be applied using optional parameters.
+    
+    Usage:
+
+      airports?id=airport_id&country=country_name&city=city_name&iata=code_iata
+
+    Parameters:
+
+      - id: unique airport identifier, e.g. 123 (Optional)
+      - country: country filter for airport, e.g. Germany (Optional)
+      - city: city filter for airport, e.g. London (Optional)
+      - iata: IATA code filter for airport, e.g. JFK (Optional)
+
+  tags:
+    - rdbms
+    - CSV
+    - airports
+  termsOfService: https://raw-labs.com/terms-of-use/
+  contact:
+    name: RAW Labs Support
+    url: https://discuss.raw-labs.com/
+    email: support@raw-labs.com
+  license:
+    name: Apache v2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0
+code: rql
+declaration: search
+codeFile: code.rql
+format: json
+security:
+  public: true
+computeClass: normal
+enabled: true
+tests:
+  - name: single_airport
+    description: get airport by id.
+    arguments:
+      - key: id
+        value: "123"
+  - name: airports_in_country
+    description: List airports by country.
+    arguments:
+      - key: country
+        value: Portugal
+  - name: airports_by_iata
+    description: List airports by 3 letter code.
+    arguments:
+      - key: IATA
+        value: GVA
+  - name: airports_by_country_city
+    description: List airports by country and city.
+    arguments:
+      - key: country
+        value: "United States"
+      - key: city
+        value: "New York"

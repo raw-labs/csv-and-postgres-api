@@ -1,0 +1,36 @@
+//
+// Data sources:
+// - PostgreSQL table "public.airports" on database under credentials name "demo-pg-server"
+// - CSV file
+//
+rdbms_airports := READ_PGSQL("demo-pg-server",  "public",  "airports");
+csv_airports := READ("https://raw-tutorial.s3.amazonaws.com/airports.csv");
+
+//
+// List airports and optionally filter them by country, city or IATA.
+// ID number is taken from the CSV file and attributes come from the RDBMS one
+//
+search(id: int nullable := null, country: string := "%", city: string := "%", IATA: string := "%") := {
+    SELECT 
+      csv.AirportID, 
+      rdbms.name, 
+      rdbms.city, 
+      rdbms.country, 
+      rdbms.iata_faa, 
+      rdbms.icao, 
+      rdbms.latitude, 
+      rdbms.longitude, 
+      rdbms.altitude, 
+      rdbms.timezone, 
+      rdbms.dst, 
+      rdbms.tz 
+    FROM 
+      csv_airports AS csv, 
+      rdbms_airports as rdbms
+    WHERE 
+      ISNULL(csv.AirportID = rdbms.airport_id, TRUE)
+      AND rdbms.country LIKE country
+      AND rdbms.city LIKE city    
+      AND rdbms.iata_faa LIKE IATA
+      AND ISNULL(csv.AirportID = id, TRUE)
+};
