@@ -1,3 +1,5 @@
+# WARNING: This repository uses deprecated features. Please refer to [this page](https://app.raw-labs.com/home/) for the latest examples.
+
 # CSV and RDMBS to API
 
 This example illustrates how to create a REST API to read and serve data from both a CSV file and a database. 
